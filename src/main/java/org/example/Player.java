@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player{
-    public String name;
-    private List<Card> hand = new ArrayList<>();
+    private final String name;
+    private final List<Card> hand = new ArrayList<>();
 
     public Player(String name){
         this.name = name;
@@ -19,22 +19,25 @@ public class Player{
         hand.add(card);
     }
 
-    public void removeCard(Card card){
-        if(card == null){
+    public void removeCard(int index){
+        if(index < 0){
             throw(new NullPointerException("Can NOT remove card from hand, card is null."));
         }
 
-        hand.remove(card);
+        hand.remove(index);
     }
-
-    public void getHand(){
+    public List<Card> getHand(){
+        return hand;
+    }
+    public void printHand(){
+        int index = 1;
         for(Card card : hand){
+            System.out.print("( " + index++ + " ) ");
             card.printInfo();
         }
     }
-
     @Override
     public String toString() {
-        return "Player Name: { " + name + " }";
+        return name;
     }
 }

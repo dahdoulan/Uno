@@ -1,34 +1,40 @@
 package org.example;
 
-public enum Color {
-    RED {
+public enum CardType {
+    Regular{
         @Override
         public String toString() {
-            return "Red";
+            return "Regular";
         }
     },
-    GREEN {
+    DrawTwo{
         @Override
         public String toString() {
-            return "Green";
+            return "DrawTwo";
         }
     },
-    BLUE {
+    DrawFour{
         @Override
         public String toString() {
-            return "Blue";
+            return "DrawFour";
         }
     },
-    YELLOW {
+    Skip{
         @Override
         public String toString() {
-            return "Yellow";
+            return "Skip";
         }
     },
-    WILDCARD{
+    Reverse{
         @Override
         public String toString() {
-            return "WildCard";
+            return "Reverse";
+        }
+    },
+    ChangeColor{
+        @Override
+        public String toString() {
+            return "ChangeColor";
         }
     }
 }

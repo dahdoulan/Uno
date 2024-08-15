@@ -1,19 +1,12 @@
 package org.example;
 
-public class DrawTwo implements SpecialCard{
-    private Color color;
-
+public class DrawTwo extends Card{
     public DrawTwo(Color color) {
-        this.color = color;
+        super(color, CardType.DrawTwo);
     }
 
     @Override
-    public void execute(Player player) {
-
-    }
-
-    @Override
-    public void printInfo() {
-        System.out.printf("Card Type: Draw | Two Card Color: %s \n", this.color.toString());
+    public void accept(CardVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -1,19 +1,12 @@
 package org.example;
 
-public class SkipCard implements SpecialCard{
-    private Color color;
-
+public class SkipCard extends Card{
     public SkipCard(Color color) {
-        this.color = color;
+        super(color, CardType.Skip);
     }
 
     @Override
-    public void execute(Player player) {
-
-    }
-
-    @Override
-    public void printInfo() {
-        System.out.printf("Card Type: Skip Card | Card Color: %s \n", this.color.toString());
+    public void accept(CardVisitor visitor) {
+        visitor.visit(this);
     }
 }

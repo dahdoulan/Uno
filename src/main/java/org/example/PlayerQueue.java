@@ -4,10 +4,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class PlayerQueue implements Iterable<Player>{
-
     private final int MAX_SIZE = 8;
     private int size = 0;
-    private Player[] players = new Player[MAX_SIZE];
+    private final Player[] players = new Player[MAX_SIZE];
     private int currentPlayer = 0;
 
     public void add(Object o) {
@@ -60,19 +59,13 @@ public class PlayerQueue implements Iterable<Player>{
     }
 
     public Player next(){
-        if(currentPlayer >= size){
-            return players[currentPlayer = 0];
-        }
-
-        return players[++currentPlayer];
+        currentPlayer = (currentPlayer + 1) % size;
+        return players[currentPlayer];
     }
 
     public Player previous(){
-        if(currentPlayer <= 0){
-            return players[currentPlayer = size];
-        }
-
-        return players[--currentPlayer];
+        currentPlayer = (currentPlayer - 1 + size) % size;
+        return players[currentPlayer];
     }
 
     public Player get(int i){
@@ -101,7 +94,7 @@ public class PlayerQueue implements Iterable<Player>{
     }
 
     public boolean isEmpty(){
-        return size == 0 ? true : false;
+        return size == 0;
     }
 
     public void print(){

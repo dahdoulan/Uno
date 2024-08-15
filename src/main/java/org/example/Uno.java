@@ -1,83 +1,41 @@
 package org.example;
 
-import java.util.Queue;
-import java.util.Scanner;
 
 public class Uno extends Game{
-    private QueueController queueController = new QueueController();
-    private MatchController matchController = new MatchController();
+    private final QueueController queueController = QueueController.getInstance();
+    private final MatchController matchController = MatchController.getInstance();
+    private final EffectController effectController = EffectController.getInstance();
+    private final GameInitializer gameInitializer = new GameInitializer();
+    private final UiController uiController = new UiController();
 
-    public void initializeGame(){
-        try(Scanner scan = new Scanner(System.in)){
-            PlayerQueue players = queueController.getPlayers();
+    public void playTurn(Player currentPlayer){
+        uiController.displayPlayerHand(currentPlayer);
+        Card card = matchController.chooseCard(currentPlayer.getHand());
 
-            matchController.initializeDeck();
-            int numOfPlayers;
-
-            while(true){
-                System.out.println("Please enter the number of players.");
-                numOfPlayers = scan.nextInt();
-                scan.nextLine();
-                System.out.println("----------------------------------------------");
-
-                if(numOfPlayers < 2 || numOfPlayers > 8){
-                    System.out.println("Least number of players is 2, And the maximum is 8.");
-                    System.out.println("Please try again.");
-                    System.out.println("----------------------------------------------");
-                    continue;
-                }
-                break;
-            }
-
-            for(int i = 0; i<numOfPlayers; i++){
-                System.out.println("Please enter the name of Player - " + (i + 1));
-
-                String name = scan.nextLine();
-
-                Player player = new Player(name);
-
-                queueController.addPlayer(player);
-            }
-
-            for(Player player : players){
-                for(int i = 0; i<7; i++){
-                    player.addCard(matchController.drawCard());
-                }
-                System.out.println(player.toString());
-                player.getHand();
-                System.out.println("----------------------------------------------");
-            }
-
-            matchController.initializePile();
-
-        }catch(Exception e){
-
+        if(card != null){
+            effectController.applyEffect(card);
+        }else{
+            currentPlayer.getHand().add(matchController.drawCard());
         }
     }
-
-    public void playTurn(Card card){
-
-    }
-
     @Override
     public void play() {
-        initializeGame();
+        gameInitializer.initializeGame();
 
-        try(Scanner scan = new Scanner(System.in)) {
-            while (true){
-                Player currentPlayer = queueController.getCurrentPlayer();
-                System.out.println("Please choose a card to play.");
+        while (true){
+            Player currentPlayer = queueController.getCurrentPlayer();
 
-                System.out.println(currentPlayer.toString());
-                currentPlayer.getHand();
+            uiController.displayMessage("---> " + currentPlayer.toString() + " please choose a card to play. <---");
+            uiController.displayMessage("---> Current card color " + matchController.getCurrentColor() + " <---");
 
-                int cardIndex = scan.nextInt();
-                scan.nextLine();
-               // playTurn();
-                queueController.move();
+            playTurn(currentPlayer);
+
+            if(currentPlayer.getHand().isEmpty()){
+                uiController.displayMessage("---> " + currentPlayer + " HAS WON THE MATCH !!!! <---");
+                break;
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            queueController.move();
+            uiController.displayMessage("------------------------------------------");
         }
     }
 }

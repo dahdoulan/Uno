@@ -1,9 +1,13 @@
 package org.example;
 
-public class ChangeColor implements SpecialCard{
-    @Override
-    public void execute(Player player) {
+public class ChangeColor extends Card{
+    public ChangeColor(Color color) {
+        super(color, CardType.ChangeColor);
+    }
 
+    @Override
+    public void accept(CardVisitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

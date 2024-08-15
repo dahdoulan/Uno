@@ -1,19 +1,12 @@
 package org.example;
 
-public class ReverseCard implements SpecialCard{
-    private Color color;
-
+public class ReverseCard extends Card{
     public ReverseCard(Color color) {
-        this.color = color;
+        super(color, CardType.Reverse);
     }
 
     @Override
-    public void execute(Player player) {
-
-    }
-
-    @Override
-    public void printInfo() {
-        System.out.printf("Card Type: Reverse Card | Card Color: %s \n", this.color.toString());
+    public void accept(CardVisitor visitor) {
+        visitor.visit(this);
     }
 }

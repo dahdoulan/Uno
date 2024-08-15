@@ -1,9 +1,13 @@
 package org.example;
 
 public class QueueController {
-    private PlayerQueue players = new PlayerQueue();
-
+    private final PlayerQueue players = new PlayerQueue();
+    private static QueueController queueController;
     private boolean isCounterClock = true; // Moves to the right of the array, else moves to the left.
+
+    private QueueController(){
+
+    }
 
     public Player move(){
         if(isCounterClock){
@@ -35,6 +39,13 @@ public class QueueController {
 
     public Player getCurrentPlayer(){
         return players.getCurrentPlayer();
+    }
+
+    public static QueueController getInstance(){
+        if(queueController == null){
+            queueController = new QueueController();
+        }
+        return queueController;
     }
 
 }
