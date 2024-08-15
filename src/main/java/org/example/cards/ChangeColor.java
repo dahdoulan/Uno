@@ -1,8 +1,11 @@
-package org.example;
+package org.example.cards;
+
+import org.example.enums.CardType;
+import org.example.enums.Color;
 
 public class ChangeColor extends Card{
-    public ChangeColor(Color color) {
-        super(color, CardType.ChangeColor);
+    public ChangeColor() {
+        super(Color.WILDCARD, CardType.ChangeColor);
     }
 
     @Override

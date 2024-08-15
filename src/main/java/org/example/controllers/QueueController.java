@@ -1,4 +1,7 @@
-package org.example;
+package org.example.controllers;
+
+import org.example.match.Player;
+import org.example.match.PlayerQueue;
 
 public class QueueController {
     private final PlayerQueue players = new PlayerQueue();

@@ -1,4 +1,6 @@
-package org.example;
+package org.example.match;
+
+import org.example.cards.Card;
 
 import java.util.ArrayList;
 import java.util.List;

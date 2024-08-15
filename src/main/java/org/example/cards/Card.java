@@ -1,4 +1,7 @@
-package org.example;
+package org.example.cards;
+
+import org.example.enums.CardType;
+import org.example.enums.Color;
 
 public abstract class Card {
     private final Color color;

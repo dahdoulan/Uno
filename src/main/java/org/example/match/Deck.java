@@ -1,7 +1,6 @@
-package org.example;
+package org.example.match;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public interface Deck <E>{
     void initializeDeck();

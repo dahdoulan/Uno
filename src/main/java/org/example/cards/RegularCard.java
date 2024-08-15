@@ -1,4 +1,7 @@
-package org.example;
+package org.example.cards;
+
+import org.example.enums.CardType;
+import org.example.enums.Color;
 
 public class RegularCard extends Card{
     private final int number;

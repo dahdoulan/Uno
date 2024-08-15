@@ -1,4 +1,6 @@
-package org.example;
+package org.example.cards;
+
+import org.example.enums.Color;
 
 public class CardEligibilityVisitor implements CardVisitor {
     private final Card topCard;

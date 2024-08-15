@@ -1,8 +1,11 @@
-package org.example;
+package org.example.cards;
+
+import org.example.enums.CardType;
+import org.example.enums.Color;
 
 public class DrawFour extends Card{
-    public DrawFour(Color color) {
-        super(color, CardType.DrawFour);
+    public DrawFour() {
+        super(Color.WILDCARD, CardType.DrawFour);
     }
 
     @Override

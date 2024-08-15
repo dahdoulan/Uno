@@ -1,4 +1,4 @@
-package org.example;
+package org.example.cards;
 
 public interface CardVisitor {
     void visit(RegularCard regularCard);

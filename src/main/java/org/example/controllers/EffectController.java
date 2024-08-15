@@ -1,4 +1,9 @@
-package org.example;
+package org.example.controllers;
+
+import org.example.enums.Color;
+import org.example.match.Player;
+import org.example.cards.Card;
+import org.example.enums.CardType;
 
 public class EffectController {
     private final QueueController queueController = QueueController.getInstance();

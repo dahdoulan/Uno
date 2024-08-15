@@ -1,4 +1,8 @@
-package org.example;
+package org.example.match;
+
+import org.example.controllers.MatchController;
+import org.example.controllers.QueueController;
+import org.example.controllers.UiController;
 
 public class GameInitializer {
     private final QueueController queueController = QueueController.getInstance();

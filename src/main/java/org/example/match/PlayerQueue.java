@@ -1,4 +1,4 @@
-package org.example;
+package org.example.match;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -95,12 +95,6 @@ public class PlayerQueue implements Iterable<Player>{
 
     public boolean isEmpty(){
         return size == 0;
-    }
-
-    public void print(){
-        for(int i = 0; i<size; i++){
-            System.out.println(players[i].toString());
-        }
     }
 
     @Override

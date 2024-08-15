@@ -1,4 +1,10 @@
-package org.example;
+package org.example.controllers;
+
+import org.example.enums.Color;
+import org.example.match.UnoDeck;
+import org.example.match.UnoPile;
+import org.example.cards.Card;
+import org.example.cards.CardEligibilityVisitor;
 
 import java.util.List;
 import java.util.Random;

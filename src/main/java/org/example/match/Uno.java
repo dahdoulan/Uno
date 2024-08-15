@@ -1,5 +1,11 @@
-package org.example;
+package org.example.match;
 
+
+import org.example.cards.Card;
+import org.example.controllers.EffectController;
+import org.example.controllers.MatchController;
+import org.example.controllers.QueueController;
+import org.example.controllers.UiController;
 
 public class Uno extends Game{
     private final QueueController queueController = QueueController.getInstance();

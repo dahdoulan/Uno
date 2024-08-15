@@ -1,4 +1,6 @@
-package org.example;
+package org.example.controllers;
+
+import org.example.match.Player;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
