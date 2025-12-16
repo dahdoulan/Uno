@@ -1,4 +1,6 @@
-package org.example.cards;
+package org.example.core.card.visitor;
+
+import org.example.card.*;
 
 public interface CardVisitor {
     void visit(RegularCard regularCard);

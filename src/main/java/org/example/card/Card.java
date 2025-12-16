@@ -1,7 +1,8 @@
-package org.example.cards;
+package org.example.card;
 
-import org.example.enums.CardType;
-import org.example.enums.Color;
+import org.example.core.card.visitor.CardVisitor;
+import org.example.core.enums.CardType;
+import org.example.core.enums.Color;
 
 public abstract class Card {
     private final Color color;
@@ -14,6 +15,10 @@ public abstract class Card {
 
     public void printInfo() {
         System.out.printf("Card Type: " + getType() +"| Card Color: %s \n", getColor());
+    }
+
+    public boolean isEmptyCard() {
+        return this instanceof EmptyCard;
     }
 
     public Color getColor() {

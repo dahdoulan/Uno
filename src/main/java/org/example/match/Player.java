@@ -1,9 +1,11 @@
 package org.example.match;
 
-import org.example.cards.Card;
+import org.example.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 public class Player{
     private final String name;
@@ -14,23 +16,15 @@ public class Player{
     }
 
     public void addCard(Card card){
-        if(card == null){
+        if(isNull(card))
             throw(new NullPointerException("Can NOT Add card to hand, card is null."));
-        }
-
         hand.add(card);
     }
 
-    public void removeCard(int index){
-        if(index < 0){
-            throw(new NullPointerException("Can NOT remove card from hand, card is null."));
-        }
-
-        hand.remove(index);
-    }
     public List<Card> getHand(){
         return hand;
     }
+
     public void printHand(){
         int index = 1;
         for(Card card : hand){
@@ -38,6 +32,7 @@ public class Player{
             card.printInfo();
         }
     }
+
     @Override
     public String toString() {
         return name;

@@ -1,6 +1,8 @@
-package org.example.cards;
+package org.example.card.visitor;
 
-import org.example.enums.Color;
+import org.example.card.*;
+import org.example.core.card.visitor.CardVisitor;
+import org.example.core.enums.Color;
 
 public class CardEligibilityVisitor implements CardVisitor {
     private final Card topCard;
@@ -20,11 +22,9 @@ public class CardEligibilityVisitor implements CardVisitor {
     public void visit(RegularCard regularCard) {
         if (topCard instanceof RegularCard) {
             RegularCard card = (RegularCard) topCard;
-
             isEligible = (regularCard.getColor() == currentColor) || (regularCard.getNumber() == card.getNumber());
-        } else {
+        } else
             isEligible = (regularCard.getColor() == currentColor);
-        }
     }
 
     @Override

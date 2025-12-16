@@ -1,39 +1,29 @@
 package org.example.match;
 
-import org.example.cards.*;
-import org.example.enums.CardType;
-import org.example.enums.Color;
+import org.example.card.Card;
+import org.example.card.UnoRegularCardFactory;
+import org.example.card.UnoSpecialCardFactory;
+import org.example.core.card.RegularCardFactory;
+import org.example.core.card.SpecialCardFactory;
+import org.example.core.enums.CardType;
+import org.example.core.enums.Color;
+import org.example.core.game.Deck;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Stack;
 
-public class UnoDeck implements Deck<Card>{
+import static java.util.Collections.shuffle;
+
+public class UnoDeck implements Deck<Card> {
+
+    private static final int NUM_OF_WILD_CARDS = 4;
+    private static final int NUM_OF_REGULAR_CARDS = 10;
+    private static final int NUM_OF_EACH_SPECIAL_CARD = 2;
+    private static final int NUMBER_ZERO_CARD = 0;
+
     private final Stack<Card> deck = new Stack<>();
     private final RegularCardFactory<Card> regularCardFactory = new UnoRegularCardFactory();
     private final SpecialCardFactory<Card> specialCardFactory = new UnoSpecialCardFactory();
 
-    private void initializeWildcards() {
-        for (int i = 0; i < 4; i++) {
-            deck.push(specialCardFactory.getInstance(CardType.ChangeColor, Color.WILDCARD));
-            deck.push(specialCardFactory.getInstance(CardType.DrawFour, Color.WILDCARD));
-        }
-    }
-    private void initializeColorCards(Color color) {
-        for (int i = 0; i < 10; i++) {
-            Card card = regularCardFactory.getInstance(color, i);
-            deck.push(card);
-            if (i != 0) {
-                deck.push(regularCardFactory.getInstance(color, i));
-            }
-        }
-        deck.push(specialCardFactory.getInstance(CardType.Skip, color));
-        deck.push(specialCardFactory.getInstance(CardType.Reverse, color));
-        deck.push(specialCardFactory.getInstance(CardType.DrawTwo, color));
-        deck.push(specialCardFactory.getInstance(CardType.Skip, color));
-        deck.push(specialCardFactory.getInstance(CardType.Reverse, color));
-        deck.push(specialCardFactory.getInstance(CardType.DrawTwo, color));
-    }
     public void initializeDeck() {
         initializeColorCards(Color.RED);
         initializeColorCards(Color.GREEN);
@@ -41,15 +31,44 @@ public class UnoDeck implements Deck<Card>{
         initializeColorCards(Color.YELLOW);
         initializeWildcards();
     }
-    public Collection<Card> shuffleDeck() {
-        Collections.shuffle(deck);
-        return deck;
+
+    public void shuffleDeck() {
+        shuffle(deck);
     }
+
     public Card getCard() {
         if (deck.isEmpty()) {
             initializeDeck();
             shuffleDeck();
         }
         return deck.pop();
+    }
+
+    private void initializeWildcards() {
+        for (int i = 0; i < NUM_OF_WILD_CARDS; i++) {
+            deck.push(specialCardFactory.getInstance(CardType.ChangeColor, Color.WILDCARD));
+            deck.push(specialCardFactory.getInstance(CardType.DrawFour, Color.WILDCARD));
+        }
+    }
+
+    private void initializeColorCards(Color color) {
+        initializeRegularCards(color);
+        initializeSpecialCards(color);
+    }
+
+    private void initializeRegularCards(Color color) {
+        for (int i = 0; i < NUM_OF_REGULAR_CARDS; i++) {
+            deck.push(regularCardFactory.getInstance(color, i));
+            if (i != NUMBER_ZERO_CARD)
+                deck.push(regularCardFactory.getInstance(color, i));
+        }
+    }
+
+    private void initializeSpecialCards(Color color) {
+        for (int i = 0; i < NUM_OF_EACH_SPECIAL_CARD; i++) {
+            deck.push(specialCardFactory.getInstance(CardType.Skip, color));
+            deck.push(specialCardFactory.getInstance(CardType.Reverse, color));
+            deck.push(specialCardFactory.getInstance(CardType.DrawTwo, color));
+        }
     }
 }

@@ -6,9 +6,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UiController {
-        private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
-        public int getNumberOfPlayers() {
+    public int getNumberOfPlayers() {
         while (true) {
             try {
                 int numOfPlayers = scanner.nextInt();
@@ -21,7 +21,7 @@ public class UiController {
         }
     }
 
-        public String getPlayerName() {
+    public String inputPlayerName() {
         while (true) {
             try {
                 return scanner.nextLine();
@@ -31,12 +31,12 @@ public class UiController {
         }
     }
 
-        public void displayPlayerHand(Player player) {
-            player.printHand();
-        }
-
-        public void displayMessage(String message) {
-            System.out.println(message);
-        }
+    public void displayPlayerHand(Player player) {
+        player.printHand();
     }
+
+    public void displayMessage(String message) {
+        System.out.println(message);
+    }
+}
 

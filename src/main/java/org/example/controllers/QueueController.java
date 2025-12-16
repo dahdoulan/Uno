@@ -3,6 +3,8 @@ package org.example.controllers;
 import org.example.match.Player;
 import org.example.match.PlayerQueue;
 
+import static java.util.Objects.isNull;
+
 public class QueueController {
     private final PlayerQueue players = new PlayerQueue();
     private static QueueController queueController;
@@ -12,20 +14,22 @@ public class QueueController {
 
     }
 
-    public Player move(){
-        if(isCounterClock){
-            return players.next();
-        }
+    public static QueueController getInstance(){
+        if(isNull(queueController))
+            queueController = new QueueController();
+        return queueController;
+    }
 
+    public Player nextPlayer(){
+        if(isCounterClock)
+            return players.next();
         return players.previous();
     }
 
     public void addPlayer(Player player){
-        if(player == null){
+        if(isNull(player))
             throw(new NullPointerException("Can NOT add player to queue, player is null."));
-        }
-
-        players.add(player);
+        players.addPlayerToQueue(player);
     }
 
     public PlayerQueue getPlayers(){
@@ -37,18 +41,10 @@ public class QueueController {
     }
 
     public void skip(){
-        move();
+        nextPlayer();
     }
 
     public Player getCurrentPlayer(){
         return players.getCurrentPlayer();
     }
-
-    public static QueueController getInstance(){
-        if(queueController == null){
-            queueController = new QueueController();
-        }
-        return queueController;
-    }
-
 }

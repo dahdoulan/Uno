@@ -1,15 +1,22 @@
 package org.example.controllers;
 
-import org.example.enums.Color;
+import org.example.card.EmptyCard;
+import org.example.core.enums.Color;
 import org.example.match.UnoDeck;
 import org.example.match.UnoPile;
-import org.example.cards.Card;
-import org.example.cards.CardEligibilityVisitor;
+import org.example.card.Card;
+import org.example.card.visitor.CardEligibilityVisitor;
 
+import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
+
+import static java.util.Objects.isNull;
 
 public class MatchController {
+
+    private static final String CARD_PLAYED_FORMAT = "---> %s was played <---";
+    private static final String CARD_DRAWN_FORMAT = "---> %s was drawn <---";
+
     private final UnoDeck deck = new UnoDeck();
     private final UnoPile pile = new UnoPile();
     private final UiController uiController = new UiController();
@@ -17,82 +24,63 @@ public class MatchController {
 
     private Color currentColor;
 
-    private MatchController(){
+    private MatchController() {
         deck.initializeDeck();
         deck.shuffleDeck();
 
         Card card = deck.getCard();
         pile.initializePile(card);
-
         currentColor = card.getColor();
     }
 
-    public Card drawCard(){
-        Card card = deck.getCard();
-        uiController.displayMessage("---> "+ card.getType() + " Was Drawn ! <---");
-        return card;
+    public static MatchController getInstance() {
+        if (isNull(matchController))
+            matchController = new MatchController();
+        return matchController;
     }
 
-    public Color getCurrentColor(){
-        return currentColor;
-    }
-
-    public void changeColor(Color color){
-        this.currentColor = color;
-    }
-
-    public boolean cardIsEligible(Card card){
-        if(card == null){
-            throw new NullPointerException("Can NOT check card eligibility, card is null.");
-        }
-
-        CardEligibilityVisitor visitor = new CardEligibilityVisitor(pile.getTopCard(), currentColor);
-        card.accept(visitor);
-
-        return visitor.isEligible();
-    }
-
-    public Card addCardToPile(Card card){
-        if(card == null){
-            throw new NullPointerException("Can NOT add card to pile, card is null.");
-        }
+    public Card playCard(Card card) {
+        if (isNull(card))
+            throw new NullPointerException("Cannot play card, card is null.");
 
         pile.addCard(card);
         currentColor = card.getColor();
-        uiController.displayMessage("---> " + card.getType() + " Was played <---");
-
+        uiController.displayMessage(String.format(CARD_PLAYED_FORMAT, card.getType()));
         return card;
     }
 
-    public Color chooseColor(){
-        Color[] color ={
-                Color.RED,
-                Color.GREEN,
-                Color.BLUE,
-                Color.YELLOW,
-        };
-        Random rand = new Random();
-
-        return color[rand.nextInt(4)];
-    }
-
-    public Card chooseCard(List<Card> hand){
-        for(Card card : hand){
-            if (cardIsEligible(card)){
-                Card temp = addCardToPile(card);
-                hand.remove(card);
-                return temp;
+    public Card chooseCard(List<Card> hand) {
+        Iterator<Card> iterator = hand.iterator();
+        while (iterator.hasNext()) {
+            Card card = iterator.next();
+            if (isCardEligible(card)) {
+                iterator.remove();
+                return playCard(card);
             }
         }
-
-        return null;
+        return new EmptyCard();
     }
 
-    public static MatchController getInstance(){
-        if(matchController == null){
-            matchController = new MatchController();
-        }
+    public Card drawCard() {
+        Card card = deck.getCard();
+        uiController.displayMessage(String.format(CARD_DRAWN_FORMAT, card.getType()));
+        return card;
+    }
 
-        return matchController;
+    public boolean isCardEligible(Card card) {
+        if (isNull(card))
+            throw new NullPointerException("Cannot check card eligibility, card is null.");
+
+        CardEligibilityVisitor visitor = new CardEligibilityVisitor(pile.getTopCard(), currentColor);
+        card.accept(visitor);
+        return visitor.isEligible();
+    }
+
+    public Color getCurrentColor() {
+        return currentColor;
+    }
+
+    public void changeColor(Color color) {
+        this.currentColor = color;
     }
 }

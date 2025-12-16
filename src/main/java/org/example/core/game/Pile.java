@@ -1,6 +1,6 @@
-package org.example.match;
+package org.example.core.game;
 
-import org.example.cards.Card;
+import org.example.card.Card;
 
 public interface Pile <E> {
     void addCard(Card card);

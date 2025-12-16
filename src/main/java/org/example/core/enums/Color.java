@@ -1,4 +1,4 @@
-package org.example.enums;
+package org.example.core.enums;
 
 public enum Color {
     RED {
@@ -29,6 +29,12 @@ public enum Color {
         @Override
         public String toString() {
             return "WildCard";
+        }
+    },
+    EMPTY{
+        @Override
+        public String toString() {
+            return "Empty Card";
         }
     }
 }

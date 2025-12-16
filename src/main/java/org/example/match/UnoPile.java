@@ -1,10 +1,11 @@
 package org.example.match;
 
-import org.example.cards.Card;
+import org.example.card.Card;
+import org.example.core.game.Pile;
 
 import java.util.Stack;
 
-public class UnoPile implements Pile<Card>{
+public class UnoPile implements Pile<Card> {
     private final Stack<Card> pile = new Stack<>();
 
     @Override

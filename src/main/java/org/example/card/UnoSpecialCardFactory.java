@@ -1,7 +1,8 @@
-package org.example.cards;
+package org.example.card;
 
-import org.example.enums.CardType;
-import org.example.enums.Color;
+import org.example.core.card.SpecialCardFactory;
+import org.example.core.enums.CardType;
+import org.example.core.enums.Color;
 
 public class UnoSpecialCardFactory implements SpecialCardFactory<Card> {
     @Override

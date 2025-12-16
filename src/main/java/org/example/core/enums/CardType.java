@@ -1,4 +1,4 @@
-package org.example.enums;
+package org.example.core.enums;
 
 public enum CardType {
     Regular{
@@ -35,6 +35,12 @@ public enum CardType {
         @Override
         public String toString() {
             return "ChangeColor";
+        }
+    },
+    NoType{
+        @Override
+        public String toString() {
+            return "No Type";
         }
     }
 }
