@@ -20,11 +20,15 @@ public class GameInitializer {
         initPlayerHands();
     }
 
+    protected boolean isValidNumOfPlayers(int numOfPlayers) {
+        return numOfPlayers >= 2 && numOfPlayers <= 8;
+    }
+
     private int validateNumOfPlayers(){
         int numOfPlayers;
         while(true){
             uiController.displayMessage("Please enter the number of players.");
-            numOfPlayers = uiController.getNumberOfPlayers();
+            numOfPlayers = uiController.promptNumberOfPlayers();
             if(isValidNumOfPlayers(numOfPlayers)){
                 uiController.displayMessage("Least number of players is 2, And the maximum is 8.");
                 uiController.displayMessage("Please try again.");
@@ -34,7 +38,6 @@ public class GameInitializer {
         }
         return numOfPlayers;
     }
-
     private void initPlayers(int numOfPlayers){
         for(int i = 0; i<numOfPlayers; i++){
             uiController.displayMessage("Please enter the name of Player - " + (i + 1));
@@ -42,9 +45,6 @@ public class GameInitializer {
             Player player = new Player(name);
             queueController.addPlayer(player);
         }
-    }
-    private boolean isValidNumOfPlayers(int numOfPlayers) {
-        return numOfPlayers < 2 || numOfPlayers > 8;
     }
 
     private void initPlayerHands(){

@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class UiController {
     private final Scanner scanner = new Scanner(System.in);
 
-    public int getNumberOfPlayers() {
+    public int promptNumberOfPlayers() {
         while (true) {
             try {
                 int numOfPlayers = scanner.nextInt();

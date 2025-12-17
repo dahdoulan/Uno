@@ -37,6 +37,11 @@ public class EffectController {
         handleEffect(type);
     }
 
+    protected void draw(Player player, int amount){
+        for(int i = 0 ; i < amount; i++)
+            player.addCard(matchController.drawCard());
+    }
+
     private void handleEffect(CardType type) {
         switch (type) {
             case Reverse -> reverse();
@@ -82,8 +87,4 @@ public class EffectController {
         draw(player, 2);
     }
 
-    private void draw(Player player, int amount){
-        for(int i = 0 ; i < amount; i++)
-            player.addCard(matchController.drawCard());
-    }
 }
